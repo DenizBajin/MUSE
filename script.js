@@ -7,12 +7,12 @@ let color2HSL = { h: 60, s: 100, l: 50 }; // Yellow (H: 60, S: 100, L: 50)
 
 // Audio elements for the tracks associated with colors
 const audioTracks = {
-  red: new Audio('Dua Lipa_ Happy For You (Live) - SNL.mp3'), // Corrected path
-  yellow: new Audio('path/to/yellow-audio.mp3'),
-  blue: new Audio('path/to/blue-audio.mp3'),
-  green: new Audio('path/to/green-audio.mp3'),
-  orange: new Audio('path/to/orange-audio.mp3'),
-  purple: new Audio('path/to/purple-audio.mp3'),
+  red: new Audio('drums.m4a'), // Corrected path
+  yellow: new Audio('piano.m4a'),
+  blue: new Audio('piano2.m4a'),
+  green: new Audio('piano3.m4a'),
+  orange: new Audio('piano4.m4a'),
+  purple: new Audio('piano5.m4a'),
 };
 
 // Function to stop all audio tracks
