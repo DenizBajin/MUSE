@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to MUSE</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    .intro-container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #333;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #555;
+    }
+
+    .start-button {
+      padding: 15px 30px;
+      font-size: 1.5em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .start-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-container">
+    <h1>Welcome to MUSE</h1>
+    <p>Click below to start mixing colors and sounds.</p>
+    <button class="start-button" onclick="startMixer()">Start</button>
+  </div>
+
+  <script>
+    // Redirect to the main mixer page when the button is clicked
+    function startMixer() {
+      window.location.href = 'index.html'; // Redirect to the main page (DJ Mixer)
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mixed Colors</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .saved-colors-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .color-swatch {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .back-button {
+      padding: 15px 30px;
+      font-size: 1.5em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 30px;
+    }
+
+    .back-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Saved Mixed Colors</h1>
+
+  <div class="saved-colors-container" id="savedColorsContainer">
+    <!-- Mixed Color Swatches will be inserted here dynamically -->
+  </div>
+
+  <button class="back-button" onclick="window.location.href = 'index.html';">Back to Mixer</button>
+
+  <script>
+    // Simulate previously saved color mixtures
+    const savedColors = [
+      { color: '#FF5733', id: 1 },
+      { color: '#33FF57', id: 2 },
+      { color: '#3357FF', id: 3 },
+      { color: '#FFFF33', id: 4 },
+      { color: '#FF33FF', id: 5 },
+      { color: '#33FFFF', id: 6 }
+    ];
+
+    // Function to load saved colors dynamically into the container
+    function loadSavedColors() {
+      const container = document.getElementById('savedColorsContainer');
+      container.innerHTML = ''; // Clear any existing swatches
+
+      savedColors.forEach(color => {
+        const swatch = document.createElement('div');
+        swatch.classList.add('color-swatch');
+        swatch.style.backgroundColor = color.color;
+        swatch.onclick = function() {
+          // Redirect to edit the selected color mixture (for example, to the main mixer page with the color loaded)
+          window.location.href = `index.html?color=${color.color}`;
+        };
+        container.appendChild(swatch);
+      });
+    }
+
+    // Load saved colors when the page is loaded
+    window.onload = loadSavedColors;
+  </script>
+
+</body>
+</html>

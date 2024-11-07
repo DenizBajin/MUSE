@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Make Music with Colors</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .content {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 30px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .back-button {
+      padding: 15px 30px;
+      font-size: 1.5em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>How to Make Music with Colors</h1>
+
+  <div class="content">
+    <p>Choose and click on a color. Sound will play. You can use the sliders to adjust the sound and the color. You can click on another color and play that sound on top of the one you are already playing. When ready, you can save the sound by clicking save.</p>
+    <p>You can keep playing the sounds that you saved by clicking the saved colors menu and clicking the color you want to keep playing, mixing, and editing.</p>
+    <p>Unless multiple colors are mixed and saved as one color, you can only adjust and edit one color. The color you will be editing is the one that you clicked last which will display a white circle around it.</p>
+  </div>
+
+  <button class="back-button" onclick="window.location.href = 'index.html';">Back to Mixer</button>
+</body>
+</html>
