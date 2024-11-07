@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DJ Mixer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="mixer">
+    <!-- Left Circle -->
+    <div class="circle left-circle" id="circle1"></div>
+
+    <!-- Saved Colors Palette (Between the Two Circles) -->
+    <div class="saved-colors" id="savedColors"></div>
+
+    <!-- Right Circle -->
+    <div class="circle right-circle" id="circle2"></div>
+  </div>
+
+  <!-- Sliders Section -->
+  <div class="sliders">
+    <div class="slider-container">
+      <label for="color1tint">Color1 Tint</label>
+      <input type="range" id="color1tint" class="slider" min="0" max="100" value="50">
+    </div>
+    <div class="slider-container">
+      <label for="color1shade">Color1 Shade</label>
+      <input type="range" id="color1shade" class="slider" min="0" max="100" value="50">
+    </div>
+    <div class="slider-container">
+      <label for="color1saturation">Color1 Saturation</label>
+      <input type="range" id="color1saturation" class="slider" min="0" max="100" value="50">
+    </div>
+    <div class="slider-container">
+      <label for="color2tint">Color2 Tint</label>
+      <input type="range" id="color2tint" class="slider" min="0" max="100" value="50">
+    </div>
+    <div class="slider-container">
+      <label for="color2shade">Color2 Shade</label>
+      <input type="range" id="color2shade" class="slider" min="0" max="100" value="50">
+    </div>
+    <div class="slider-container">
+      <label for="color2saturation">Color2 Saturation</label>
+      <input type="range" id="color2saturation" class="slider" min="0" max="100" value="50">
+    </div>
+  </div>
+
+  <!-- Color Buttons -->
+  <div class="colors">
+    <div class="color-circle" id="color1" style="background-color: red;" data-color="red"></div>
+    <div class="color-circle" id="color2" style="background-color: yellow;" data-color="yellow"></div>
+    <div class="color-circle" id="color3" style="background-color: blue;" data-color="blue"></div>
+    <div class="color-circle" id="color4" style="background-color: green;" data-color="green"></div>
+    <div class="color-circle" id="color5" style="background-color: orange;" data-color="orange"></div>
+    <div class="color-circle" id="color6" style="background-color: purple;" data-color="purple"></div>
+  </div>
+
+  <!-- Save Button -->
+  <button id="saveButton" class="save-button">Save Mixture</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
