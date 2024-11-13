@@ -153,3 +153,35 @@ document.getElementById('color2saturation').addEventListener('input', (event) =>
   color2HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
 });
+
+// Function to mix two HSL colors
+function mixHSLColors(hsl1, hsl2) {
+    const mixedH = (hsl1.h + hsl2.h) / 2;  // Average the hues
+    const mixedS = (hsl1.s + hsl2.s) / 2;  // Average the saturations
+    const mixedL = (hsl1.l + hsl2.l) / 2;  // Average the lightness values
+    
+    return { h: mixedH, s: mixedS, l: mixedL };
+  }
+  
+  // Function to update the color of the middle circle with the mixed color
+  function updateMixedColorDisplay(mixedHSL) {
+    const rgb = hslToRgb(mixedHSL.h, mixedHSL.s, mixedHSL.l);
+    const color = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+    
+    // Update the middle circle (id="savedColors") with the mixed color
+    document.getElementById('savedColors').style.backgroundColor = color;
+  }
+  
+  // Event listener for the "Save Mixture" button
+  document.getElementById('saveButton').addEventListener('click', function () {
+    if (selectedCircle === 'circle1' || selectedCircle === 'circle2') {
+      // Mix the selected colors (color1HSL and color2HSL)
+      const mixedColorHSL = mixHSLColors(color1HSL, color2HSL);
+      
+      // Update the middle circle with the mixed color
+      updateMixedColorDisplay(mixedColorHSL);
+    } else {
+      alert('Please select two colors before mixing!');
+    }
+  });
+  
