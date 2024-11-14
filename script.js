@@ -1,9 +1,9 @@
-// Global variables to track the selected circle (left or right)
+// Global variables
 let selectedCircle = null;
 
-// Initial colors for the large circles (HSL values)
-let color1HSL = { h: 0, s: 100, l: 50 }; // Red
-let color2HSL = { h: 60, s: 100, l: 50 }; // Yellow
+// Initial HSL values for the circles
+let color1HSL = { h: 0, s: 0, l: 100 }; // White
+let color2HSL = { h: 0, s: 0, l: 100 }; // White
 
 // Audio elements for the tracks associated with colors
 const audioTracks = {
@@ -20,7 +20,15 @@ Object.values(audioTracks).forEach(track => {
   track.loop = true;
 });
 
-
+// Object mapping color names to HSL values
+const colorValues = {
+  red: { h: 0, s: 100, l: 50 },
+  yellow: { h: 60, s: 100, l: 50 },
+  blue: { h: 240, s: 100, l: 50 },
+  green: { h: 120, s: 100, l: 50 },
+  orange: { h: 30, s: 100, l: 50 },
+  purple: { h: 270, s: 100, l: 50 },
+};
 
 // Function to stop all audio tracks
 function stopAllAudio() {
@@ -30,7 +38,38 @@ function stopAllAudio() {
   });
 }
 
-// Function to convert HSL to RGB for color display
+// Function to play audio for selected colors
+function playSelectedAudio() {
+  stopAllAudio(); // Stop any audio not currently selected
+
+  // Play audio for the left circle color
+  const color1Name = Object.keys(colorValues).find(
+    key => colorValues[key].h === color1HSL.h &&
+           colorValues[key].s === color1HSL.s &&
+           colorValues[key].l === color1HSL.l
+  );
+  if (color1Name && audioTracks[color1Name]) {
+    audioTracks[color1Name].play();
+  }
+
+  // Play audio for the right circle color
+  const color2Name = Object.keys(colorValues).find(
+    key => colorValues[key].h === color2HSL.h &&
+           colorValues[key].s === color2HSL.s &&
+           colorValues[key].l === color2HSL.l
+  );
+  if (color2Name && audioTracks[color2Name]) {
+    audioTracks[color2Name].play();
+  }
+}
+
+// Function to update the color of a circle
+function updateCircleColor(circleId, hsl) {
+  const rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
+  document.getElementById(circleId).style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+}
+
+// Function to convert HSL to RGB
 function hslToRgb(h, s, l) {
   s /= 100;
   l /= 100;
@@ -53,37 +92,22 @@ function hslToRgb(h, s, l) {
   ];
 }
 
-// Function to update the color of a large circle
-function updateCircleColor(circleId, hsl) {
-  const rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
-  document.getElementById(circleId).style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+// Function to mix two HSL colors
+function mixHSLColors(hsl1, hsl2) {
+  const mixedH = (hsl1.h + hsl2.h) / 2;  // Average the hues
+  const mixedS = (hsl1.s + hsl2.s) / 2;  // Average the saturations
+  const mixedL = (hsl1.l + hsl2.l) / 2;  // Average the lightness values
+  return { h: mixedH, s: mixedS, l: mixedL };
 }
 
-// Function to play audio based on the current color of each circle
-function playAudioBasedOnSelection() {
-  // Get the color name for each circle based on HSL values
-  const color1Audio = Object.keys(colorValues).find(
-    key => colorValues[key].h === color1HSL.h && colorValues[key].s === color1HSL.s && colorValues[key].l === color1HSL.l
-  );
-  const color2Audio = Object.keys(colorValues).find(
-    key => colorValues[key].h === color2HSL.h && colorValues[key].s === color2HSL.s && colorValues[key].l === color2HSL.l
-  );
-
-  // Stop all audio if no colors are selected
-  stopAllAudio();
-
-  // Play audio for circle 1 if it has a color selected
-  if (color1Audio && audioTracks[color1Audio]) {
-    audioTracks[color1Audio].play();
-  }
-
-  // Play audio for circle 2 if it has a color selected
-  if (color2Audio && audioTracks[color2Audio]) {
-    audioTracks[color2Audio].play();
-  }
+// Function to update the mixed color display in the middle circle
+function updateMixedColorDisplay() {
+  const mixedColorHSL = mixHSLColors(color1HSL, color2HSL);
+  const rgb = hslToRgb(mixedColorHSL.h, mixedColorHSL.s, mixedColorHSL.l);
+  document.getElementById('savedColors').style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
-// Function to handle clicking on a color palette and change the large circle's color
+// Event listener for the color palette
 document.querySelectorAll('.color-circle').forEach(circle => {
   circle.addEventListener('click', () => {
     const selectedColor = circle.getAttribute('data-color');
@@ -95,126 +119,37 @@ document.querySelectorAll('.color-circle').forEach(circle => {
       updateCircleColor('circle2', color2HSL);
     }
 
-    // Play audio based on the current selection of each circle
-    playAudioBasedOnSelection();
+    // Update the mixed color display and play selected audio
+    updateMixedColorDisplay();
+    playSelectedAudio();
   });
 });
 
-// Function to track which circle is selected
+// Event listener for large circle selection
 document.querySelectorAll('.circle').forEach(circle => {
   circle.addEventListener('click', (event) => {
     selectedCircle = event.target.id;
   });
 });
 
+// Event listeners for remove buttons
+document.getElementById('removeLeftButton').addEventListener('click', () => {
+  color1HSL = { h: 0, s: 0, l: 100 }; // Reset to white
+  updateCircleColor('circle1', color1HSL);
+  playSelectedAudio(); // Update audio playback
+  updateMixedColorDisplay(); // Update mixed color display
+});
 
-// Object mapping color names to HSL values
-const colorValues = {
-  red: { h: 0, s: 100, l: 50 },
-  yellow: { h: 60, s: 100, l: 50 },
-  blue: { h: 240, s: 100, l: 50 },
-  green: { h: 120, s: 100, l: 50 },
-  orange: { h: 30, s: 100, l: 50 },
-  purple: { h: 270, s: 100, l: 50 },
+document.getElementById('removeRightButton').addEventListener('click', () => {
+  color2HSL = { h: 0, s: 0, l: 100 }; // Reset to white
+  updateCircleColor('circle2', color2HSL);
+  playSelectedAudio(); // Update audio playback
+  updateMixedColorDisplay(); // Update mixed color display
+});
+
+// Ensure both circles are white when the page loads
+window.onload = function() {
+  updateCircleColor('circle1', color1HSL);
+  updateCircleColor('circle2', color2HSL);
+  updateMixedColorDisplay();
 };
-
-// Event listeners for sliders to adjust color properties
-document.getElementById('color1tint').addEventListener('input', (event) => {
-  color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
-  updateCircleColor('circle1', color1HSL);
-});
-
-document.getElementById('color1shade').addEventListener('input', (event) => {
-  color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
-  updateCircleColor('circle1', color1HSL);
-});
-
-document.getElementById('color1saturation').addEventListener('input', (event) => {
-  color1HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
-  updateCircleColor('circle1', color1HSL);
-});
-
-document.getElementById('color2tint').addEventListener('input', (event) => {
-  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
-  updateCircleColor('circle2', color2HSL);
-});
-
-document.getElementById('color2shade').addEventListener('input', (event) => {
-  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
-  updateCircleColor('circle2', color2HSL);
-});
-
-document.getElementById('color2saturation').addEventListener('input', (event) => {
-  color2HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
-  updateCircleColor('circle2', color2HSL);
-});
-
-// Function to mix two HSL colors
-function mixHSLColors(hsl1, hsl2) {
-    const mixedH = (hsl1.h + hsl2.h) / 2;  // Average the hues
-    const mixedS = (hsl1.s + hsl2.s) / 2;  // Average the saturations
-    const mixedL = (hsl1.l + hsl2.l) / 2;  // Average the lightness values
-    
-    return { h: mixedH, s: mixedS, l: mixedL };
-}
-
-// Function to update the color of the middle circle with the mixed color
-function updateMixedColorDisplay(mixedHSL) {
-    const rgb = hslToRgb(mixedHSL.h, mixedHSL.s, mixedHSL.l);
-    const color = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-    
-    // Update the middle circle (id="savedColors") with the mixed color
-    document.getElementById('savedColors').style.backgroundColor = color;
-}
-
-// Event listener for the "Save Mixture" button
-document.getElementById('saveButton').addEventListener('click', function () {
-    if (selectedCircle === 'circle1' || selectedCircle === 'circle2') {
-      // Mix the selected colors (color1HSL and color2HSL)
-      const mixedColorHSL = mixHSLColors(color1HSL, color2HSL);
-      
-      // Update the middle circle with the mixed color
-      updateMixedColorDisplay(mixedColorHSL);
-    } else {
-      alert('Please select two colors before mixing!');
-    }
-});
-
-// Function to play both audio tracks at the same time
-function playBothAudio() {
-  // Check if both circles have been selected
-  if (selectedCircle === 'circle1' && color1HSL) {
-    const color1Name = getColorNameFromHSL(color1HSL);
-    if (audioTracks[color1Name]) {
-      audioTracks[color1Name].play();
-    }
-  }
-
-  if (selectedCircle === 'circle2' && color2HSL) {
-    const color2Name = getColorNameFromHSL(color2HSL);
-    if (audioTracks[color2Name]) {
-      audioTracks[color2Name].play();
-    }
-  }
-}
-
-// Function to stop all audio tracks
-function stopAllAudio() {
-  Object.values(audioTracks).forEach(track => track.pause());
-  Object.values(audioTracks).forEach(track => track.currentTime = 0); // Reset the audio position to the start
-}
-
-
-// Function to map HSL values to color names
-function getColorNameFromHSL(hsl) {
-  const { h } = hsl;
-
-  if (h >= 0 && h < 60) return 'red';
-  if (h >= 60 && h < 120) return 'yellow';
-  if (h >= 120 && h < 180) return 'green';
-  if (h >= 180 && h < 240) return 'blue';
-  if (h >= 240 && h < 300) return 'purple';
-  if (h >= 300 && h < 360) return 'orange';
-
-  return 'red'; // Default to red if it doesn't match any range
-}
