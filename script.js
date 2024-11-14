@@ -40,7 +40,21 @@ function stopAllAudio() {
 
 // Function to play audio for selected colors
 function playSelectedAudio() {
-  stopAllAudio(); // Stop any audio not currently selected
+  // Stop audio only for tracks that are not currently selected
+  Object.entries(audioTracks).forEach(([color, track]) => {
+    const isPlayingForCircle1 = colorValues[color].h === color1HSL.h &&
+                                colorValues[color].s === color1HSL.s &&
+                                colorValues[color].l === color1HSL.l;
+
+    const isPlayingForCircle2 = colorValues[color].h === color2HSL.h &&
+                                colorValues[color].s === color2HSL.s &&
+                                colorValues[color].l === color2HSL.l;
+
+    if (!isPlayingForCircle1 && !isPlayingForCircle2) {
+      track.pause();
+      track.currentTime = 0; // Reset to the beginning
+    }
+  });
 
   // Play audio for the left circle color
   const color1Name = Object.keys(colorValues).find(
@@ -62,6 +76,22 @@ function playSelectedAudio() {
     audioTracks[color2Name].play();
   }
 }
+
+// Event listeners for remove buttons
+document.getElementById('removeLeftButton').addEventListener('click', () => {
+  color1HSL = { h: 0, s: 0, l: 100 }; // Reset to white
+  updateCircleColor('circle1', color1HSL);
+  playSelectedAudio(); // Update audio playback
+  updateMixedColorDisplay(); // Update mixed color display
+});
+
+document.getElementById('removeRightButton').addEventListener('click', () => {
+  color2HSL = { h: 0, s: 0, l: 100 }; // Reset to white
+  updateCircleColor('circle2', color2HSL);
+  playSelectedAudio(); // Update audio playback
+  updateMixedColorDisplay(); // Update mixed color display
+});
+
 
 // Function to update the color of a circle
 function updateCircleColor(circleId, hsl) {
@@ -153,3 +183,40 @@ window.onload = function() {
   updateCircleColor('circle2', color2HSL);
   updateMixedColorDisplay();
 };
+
+// Event listeners for sliders
+document.getElementById('color1tint').addEventListener('input', (event) => {
+  color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  updateCircleColor('circle1', color1HSL);
+  updateMixedColorDisplay();
+});
+
+document.getElementById('color1saturation').addEventListener('input', (event) => {
+  color1HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  updateCircleColor('circle1', color1HSL);
+  updateMixedColorDisplay();
+});
+
+document.getElementById('color1shade').addEventListener('input', (event) => {
+  color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  updateCircleColor('circle1', color1HSL);
+  updateMixedColorDisplay();
+});
+
+document.getElementById('color2tint').addEventListener('input', (event) => {
+  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  updateCircleColor('circle2', color2HSL);
+  updateMixedColorDisplay();
+});
+
+document.getElementById('color2saturation').addEventListener('input', (event) => {
+  color2HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  updateCircleColor('circle2', color2HSL);
+  updateMixedColorDisplay();
+});
+
+document.getElementById('color2shade').addEventListener('input', (event) => {
+  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  updateCircleColor('circle2', color2HSL);
+  updateMixedColorDisplay();
+});
