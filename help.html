@@ -5,12 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How to Make Music with Colors</title>
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Link to Google Fonts for VHS-style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Press Start 2P', cursive; /* Apply VHS font */
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: black; /* Black background */
+      color: white; /* White text */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -20,32 +25,33 @@
     }
 
     h1 {
-      font-size: 2.5em;
-      color: #333;
-      margin-bottom: 20px;
+      font-size: 1.8em; /* Smaller heading font size */
+      color: white; /* Heading color set to white */
+      margin-bottom: 15px;
     }
 
     .content {
-      font-size: 1.2em;
-      color: #555;
-      margin-bottom: 30px;
+      font-size: 1em; /* Smaller content font size */
+      color: white; /* Content text color set to white */
+      margin-bottom: 20px;
       max-width: 600px;
-      line-height: 1.6;
+      line-height: 1.4; /* Adjust line-height to fit better */
     }
 
     .back-button {
-      padding: 15px 30px;
-      font-size: 1.5em;
-      background-color: #4CAF50;
-      color: white;
+      padding: 12px 25px;
+      font-size: 1.2em; /* Smaller button font size */
+      background-color: white; /* White button background */
+      color: black; /* Black text color */
       border: none;
       cursor: pointer;
       border-radius: 5px;
       margin-top: 20px;
+      font-family: 'Press Start 2P', cursive; /* Apply VHS font to button text */
     }
 
     .back-button:hover {
-      background-color: #45a049;
+      background-color: #f1f1f1; /* Slight gray background on hover */
     }
   </style>
 </head>
@@ -53,7 +59,7 @@
   <h1>How to Make Music with Colors</h1>
 
   <div class="content">
-    <p>Choose and click on a color. Sound will play. You can use the sliders to adjust the sound and the color. You can click on another color and play that sound on top of the one you are already playing. When ready, you can save the sound by clicking save.</p>
+    <p>Click on the left large circle. Choose and click on a color. Sound will play. You can use the sliders to adjust the sound and the color. You can click on another color and play that sound on top of the one you are already playing. When ready, you can save the sound by clicking save.</p>
     <p>You can keep playing the sounds that you saved by clicking the saved colors menu and clicking the color you want to keep playing, mixing, and editing.</p>
     <p>Unless multiple colors are mixed and saved as one color, you can only adjust and edit one color. The color you will be editing is the one that you clicked last which will display a white circle around it.</p>
   </div>

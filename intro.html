@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to MUSE</title>
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Link to Google Fonts for VHS-style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  
   <style>
     body {
       display: flex;
@@ -12,8 +16,9 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #f0f0f0;
-      font-family: Arial, sans-serif;
+      background-color: black; /* Background color set to black */
+      font-family: 'Press Start 2P', cursive; /* Applying the VHS font */
+      color: white; /* Text color set to white for contrast */
     }
 
     .intro-container {
@@ -22,32 +27,40 @@
 
     h1 {
       font-size: 3em;
-      color: #333;
+      color: white; /* Heading color set to white */
     }
 
     p {
       font-size: 1.2em;
-      color: #555;
+      color: #ccc; /* Paragraph color set to light gray */
     }
 
     .start-button {
       padding: 15px 30px;
       font-size: 1.5em;
-      background-color: #4CAF50;
-      color: white;
+      background-color: white; /* Set button background color to white */
+      color: black; /* Button text color set to black */
       border: none;
       cursor: pointer;
       border-radius: 5px;
       margin-top: 20px;
+      font-family: 'Press Start 2P', cursive; /* Applying the VHS font to the button */
     }
 
     .start-button:hover {
-      background-color: #45a049;
+      background-color: #f1f1f1; /* Slight gray background on hover */
+    }
+
+    .logo {
+      width: 400px; /* Increased image size */
+      height: auto;
+      margin-bottom: 20px; /* Space between the image and text */
     }
   </style>
 </head>
 <body>
   <div class="intro-container">
+    <img src="muse-logo.png" alt="MUSE Logo" class="logo"> <!-- Add your image here -->
     <h1>Welcome to MUSE</h1>
     <p>Click below to start mixing colors and sounds.</p>
     <button class="start-button" onclick="startMixer()">Start</button>

@@ -1,4 +1,8 @@
 /* General Page Layout */
+* {
+  box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
