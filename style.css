@@ -13,6 +13,7 @@ body {
   }
   
   .circle {
+    position: relative;
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -27,7 +28,56 @@ body {
   .right-circle {
     background-color: lightgreen;
   }
+
+/*animated border*/
+  .left-circle::after{
+    content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 201px;
+  height: 203px;
+  border-radius: 50%;
+  border: 10px solid transparent;
+  box-sizing: border-box;
+  transition: border-color 0.4s ease;
+  }
+  /*add animation when clicked*/
+  .left-circle.active::after{
+    border-color: white; /* White border color */
+    animation: borderAnimation 0.8s linear infinite;
+  }
+  /* keyframes for rotating border */
+  @keyframes borderAnimation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .right-circle::after{
+    content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 201px;
+  height: 203px;
+  border-radius: 50%;
+  border: 10px solid transparent;
+  box-sizing: border-box;
+  transition: border-color 0.4s ease;
+  }
+  /*add animation when clicked*/
+  .right-circle.active::after{
+    border-color: white; /* White border color */
+    animation: borderAnimation 0.8s linear infinite;
+  }
+  /* keyframes for rotating border */
+  @keyframes borderAnimation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
   
+
+
   /* Saved Colors Palette */
   .saved-colors {
     width: 100px;

@@ -4,6 +4,7 @@ let selectedCircle = null;
 // Initial colors for the large circles (HSL values)
 let color1HSL = { h: 0, s: 100, l: 50 }; // Red (H: 0, S: 100, L: 50)
 let color2HSL = { h: 60, s: 100, l: 50 }; // Yellow (H: 60, S: 100, L: 50)
+//console.log ("heygurl"); fun lil print statement
 
 // Audio elements for the tracks associated with colors
 const audioTracks = {
@@ -152,4 +153,26 @@ document.getElementById('color2shade').addEventListener('input', (event) => {
 document.getElementById('color2saturation').addEventListener('input', (event) => {
   color2HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
+});
+
+//adding click funtionality to both circles
+const circle1ne = document.querySelector("#circle1");
+const circle2wo = document.querySelector("#circle2");
+const clickcircles = [circle1ne, circle2wo]
+
+console.log(clickcircles);
+
+// Add a click event listener to the circle
+clickcircles.forEach(circle => {
+  console.log (circle);
+
+  circle.addEventListener("click", function() {
+    // Remove 'active' class from all circles to reset animations
+    clickcircles.forEach(c => c.classList.remove("active"));
+    
+    
+    // Add 'active' class to the clicked circle to start the animation
+    this.classList.add("active");
+    console.log ("onclick toggled");
+  });
 });
