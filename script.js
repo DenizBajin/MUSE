@@ -15,6 +15,8 @@ const audioTracks = {
   orange: new Audio('piano4.m4a'),
   purple: new Audio('piano5.m4a'),
 };
+//let activeAudio = null;
+
 
 // Set each audio track to loop
 Object.values(audioTracks).forEach(track => {
@@ -185,11 +187,32 @@ window.onload = function() {
   updateMixedColorDisplay();
 };
 
+//getting the sliders to work for sound too
+let activeAudio = null;
+
+function updateActiveAudio(color) {
+  if (audioTracks[color]) {
+    activeAudio = audioTracks[color];
+    console.log(`Active audio set to: ${color}`);
+  } else {
+    console.warn(`No audio found for color: ${color}`);
+    activeAudio = null;
+  }
+}
+
+
 // Event listeners for sliders
+//tint - speed slider
 document.getElementById('color1tint').addEventListener('input', (event) => {
+  //const speed = Math.min(2,Math.max(0.5, parseFloat(event.target.value)/50));
   color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
+  const speed = Math.min(2, Math.max(0.5, parseFloat(event.target.value) / 50)); // Map value to 0.5–2 range
+  if (activeAudio) {
+    activeAudio.playbackRate = speed;
+    console.log(`Speed (Tint) for active audio set to: ${speed}`);
+  }
 });
 
 document.getElementById('color1saturation').addEventListener('input', (event) => {
@@ -217,6 +240,15 @@ document.getElementById('color2shade').addEventListener('input', (event) => {
 document.getElementById('color2saturation').addEventListener('input', (event) => {
   color2HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
+});
+
+const colorCircles = document.querySelectorAll('.color-circle');
+
+colorCircles.forEach(circle => {
+  circle.addEventListener('click', (event) => {
+    const selectedColor = event.target.getAttribute('data-color');
+    updateActiveAudio(selectedColor); // Update the active audio
+  });
 });
 
 //adding click funtionality to both circles

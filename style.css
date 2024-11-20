@@ -48,7 +48,7 @@ body {
   }
   /*add animation when clicked*/
   .left-circle.active::after{
-    border-color: white; /* White border color */
+    border-color: gray; /* White border color */
     animation: borderAnimation 0.8s linear infinite;
   }
   /* keyframes for rotating border */
@@ -71,7 +71,7 @@ body {
   }
   /*add animation when clicked*/
   .right-circle.active::after{
-    border-color: white; /* White border color */
+    border-color: gray; /* White border color */
     animation: borderAnimation 0.8s linear infinite;
   }
   /* keyframes for rotating border */
