@@ -15,7 +15,6 @@ const audioTracks = {
   orange: new Audio('piano4.m4a'),
   purple: new Audio('piano5.m4a'),
 };
-//let activeAudio = null;
 
 
 // Set each audio track to loop
@@ -202,6 +201,7 @@ function updateActiveAudio(color) {
 
 
 // Event listeners for sliders
+
 //tint - speed slider
 document.getElementById('color1tint').addEventListener('input', (event) => {
   //const speed = Math.min(2,Math.max(0.5, parseFloat(event.target.value)/50));
@@ -219,8 +219,13 @@ document.getElementById('color1saturation').addEventListener('input', (event) =>
   color1HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
+  const volumeValue = parseInt(event.target.value) / 100;  // Convert slider value to 0-1 range
+  if (activeAudio) {
+    activeAudio.volume = volumeValue;  // Adjust the volume of the active audio
+    console.log(`Volume for active audio set to: ${volumeValue * 100}%`);
+  }
 });
-
+//shade - lowpass gi
 document.getElementById('color1shade').addEventListener('input', (event) => {
   color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
