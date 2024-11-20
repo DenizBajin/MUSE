@@ -225,15 +225,14 @@ document.getElementById('color1saturation').addEventListener('input', (event) =>
 });
 
 //TODO: Figure out how tint and shade should relate
-//Basically add the tint and shade lightness together
 document.getElementById('color1shade').addEventListener('input', (event) => {
   color1HSL.l = Math.min(50, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
 });
 
+//TODO: make lightness dependent on tint - shade
 document.getElementById('color2tint').addEventListener('input', (event) => {
-  
   color2HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
 });
