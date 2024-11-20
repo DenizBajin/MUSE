@@ -203,9 +203,11 @@ function updateActiveAudio(color) {
 
 // Event listeners for sliders
 //tint - speed slider
+
+//needs to be reversed
 document.getElementById('color1tint').addEventListener('input', (event) => {
   //const speed = Math.min(2,Math.max(0.5, parseFloat(event.target.value)/50));
-  color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  color1HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
   const speed = Math.min(2, Math.max(0.5, parseFloat(event.target.value) / 50)); // Map value to 0.5–2 range
@@ -215,25 +217,27 @@ document.getElementById('color1tint').addEventListener('input', (event) => {
   }
 });
 
+
 document.getElementById('color1saturation').addEventListener('input', (event) => {
   color1HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
 });
 
+//TODO: Figure out how tint and shade should relate
 document.getElementById('color1shade').addEventListener('input', (event) => {
-  color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  color1HSL.l = Math.min(50, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
 });
 
 document.getElementById('color2tint').addEventListener('input', (event) => {
-  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  color2HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
 });
 
 document.getElementById('color2shade').addEventListener('input', (event) => {
-  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  color2HSL.l = Math.min(50, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
 });
 

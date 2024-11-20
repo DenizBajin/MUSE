@@ -237,7 +237,7 @@
       }
 
     .slider {
-      transform: rotate(90deg);
+      transform: rotate(270deg);
       width: 160px;
       margin: 250%;
       }
