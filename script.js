@@ -1,9 +1,9 @@
 // Global variables
-let selectedCircle = null;
+let selectedCircle = 'circle1';
 
 // Initial colors for the large circles (HSL values)
-let color1HSL = { h: 0, s: 100, l: 50 }; // Red (H: 0, S: 100, L: 50)
-let color2HSL = { h: 60, s: 100, l: 50 }; // Yellow (H: 60, S: 100, L: 50)
+let color1HSL = { h: 100, s: 100, l: 100 }; // Red (H: 0, S: 100, L: 50)
+let color2HSL = { h: 100, s: 100, l: 100 }; // Yellow (H: 60, S: 100, L: 50)
 //console.log ("heygurl"); fun lil print statement
 
 // Audio elements for the tracks associated with colors
@@ -66,6 +66,8 @@ function playSelectedAudio() {
   );
   if (color1Name && audioTracks[color1Name]) {
     audioTracks[color1Name].play();
+    
+
   }
 
   // Play audio for the right circle color
@@ -76,6 +78,7 @@ function playSelectedAudio() {
   );
   if (color2Name && audioTracks[color2Name]) {
     audioTracks[color2Name].play();
+    
   }
 }
 
@@ -139,7 +142,7 @@ function updateMixedColorDisplay() {
   document.getElementById('savedColors').style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
-// Event listener for the color palette
+// Event listener for the color palette'
 document.querySelectorAll('.color-circle').forEach(circle => {
   circle.addEventListener('click', () => {
     const selectedColor = circle.getAttribute('data-color');
@@ -281,4 +284,14 @@ clickcircles.forEach(circle => {
     this.classList.add("active");
     console.log ("onclick toggled");
   });
+});
+
+// Automatically set the left circle (circle1) as active on page load
+document.addEventListener("DOMContentLoaded", function() {
+  // Add 'active' class to the left circle (circle1)
+  circle1ne.classList.add("active");
+
+  const selectedColor = circle1.dataset.color; // assuming you use a data-color attribute
+  updateActiveAudio(selectedColor); 
+  console.log("Left circle is active on page load");
 });
