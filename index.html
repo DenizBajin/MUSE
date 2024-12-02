@@ -368,6 +368,45 @@
     Your browser does not support the audio element.
   </audio>
 
+  <!-- Slider to Adjust Pitch -->
+<label for="pitchSlider">Pitch Control</label>
+<input id="pitchSlider" type="range" min="0.5" max="2" step="0.01" value="1">
+
+<script>
+    // Select audio element and slider
+    const audioElement = document.getElementById('audioPlayer');
+    const pitchSlider = document.getElementById('pitchSlider');
+
+    // Create AudioContext and connect audio element
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const track = audioContext.createMediaElementSource(audioElement);
+
+    // Create a playback rate control
+    const pitchControl = audioContext.createGain();
+
+    // Create a filter to enhance pitch change quality
+    const filter = audioContext.createBiquadFilter();
+    filter.type = 'peaking'; 
+    filter.frequency.value = 1000;
+
+    // Connect the nodes
+    track.connect(pitchControl).connect(filter).connect(audioContext.destination);
+
+    // Start audio context on interaction
+    document.addEventListener('click', () => {
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+    });
+
+    // Update pitch control when slider changes
+    pitchSlider.addEventListener('input', (event) => {
+        const playbackRate = parseFloat(event.target.value);
+        audioElement.playbackRate = playbackRate; // Changes the pitch indirectly
+    });
+</script>
+
   <script src="script.js"></script>
 </body>
 </html>
+

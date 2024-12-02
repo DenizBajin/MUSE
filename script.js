@@ -1,5 +1,7 @@
 // Global variables
-let selectedCircle = 'circle1';
+let selectedCircle = "circle1";
+let circle1Audio = null;
+let circle2Audio = null;
 
 // Initial colors for the large circles (HSL values)
 let color1HSL = { h: 100, s: 100, l: 100 }; // Red (H: 0, S: 100, L: 50)
@@ -142,6 +144,18 @@ function updateMixedColorDisplay() {
   document.getElementById('savedColors').style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
+function isActiveCircle(circleId) {
+  return selectedCircle === circleId; // Check if the currently active circle matches
+}
+// Function to update the active circle (and its visuals)
+function setActiveCircle(circleId) {
+  selectedCircle = circleId;
+  document.querySelectorAll('.color-circle').forEach(circle => {
+    circle.classList.remove('active'); // Remove active class from all circles
+  });
+  document.getElementById(circleId).classList.add('active'); // Add active class to the selected circle
+}
+
 // Event listener for the color palette'
 document.querySelectorAll('.color-circle').forEach(circle => {
   circle.addEventListener('click', () => {
@@ -192,44 +206,62 @@ window.onload = function() {
 //getting the sliders to work for sound too
 let activeAudio = null;
 
-function updateActiveAudio(color) {
+function updateActiveAudio(circleId, color) {
   if (audioTracks[color]) {
-    activeAudio = audioTracks[color];
-    console.log(`Active audio set to: ${color}`);
+    if (circleId == 'circle1'){
+      circle1Audio = audioTracks[color];
+      console.log(`Circle 1 audio set to: ${color}`);
+    } else if (circleId === 'circle2'){
+      circle2Audio = audioTracks[color];
+      console.log(`Circle 2 audio set to: ${color}`);
+    }
+    //activeAudio = audioTracks[color];
+    //console.log(`Active audio set to: ${color}`);
   } else {
     console.warn(`No audio found for color: ${color}`);
-    activeAudio = null;
+    //activeAudio = null;
   }
 }
 
 
 // Event listeners for sliders
+// Initialize by making Circle 1 active on load
+document.addEventListener('DOMContentLoaded', () => {
+  setActiveCircle('circle1');
+});
+
+// Event listeners for Circle selection
+document.getElementById('circle1').addEventListener('click', () => setActiveCircle('circle1'));
+document.getElementById('circle2').addEventListener('click', () => setActiveCircle('circle2'));
 
 //tint - speed slider
 
 //needs to be reversed
 document.getElementById('color1tint').addEventListener('input', (event) => {
+if (isActiveCircle('circle1')&& circle1Audio){
   //const speed = Math.min(2,Math.max(0.5, parseFloat(event.target.value)/50));
   color1HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
+  
   const speed = Math.min(2, Math.max(0.5, parseFloat(event.target.value) / 50)); // Map value to 0.5–2 range
-  if (activeAudio) {
-    activeAudio.playbackRate = speed;
+    circle1Audio.playbackRate = speed;
     console.log(`Speed (Tint) for active audio set to: ${speed}`);
-  }
+
+}
 });
 
 
 document.getElementById('color1saturation').addEventListener('input', (event) => {
+  if (isActiveCircle('circle1') && circle1Audio){
   color1HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
   const volumeValue = parseInt(event.target.value) / 100;  // Convert slider value to 0-1 range
-  if (activeAudio) {
-    activeAudio.volume = volumeValue;  // Adjust the volume of the active audio
+    circle1Audio.volume = volumeValue;  // Adjust the volume of the active audio
     console.log(`Volume for active audio set to: ${volumeValue * 100}%`);
-  }
+  
+}
 });
 
 //TODO: Figure out how tint and shade should relate
@@ -241,8 +273,16 @@ document.getElementById('color1shade').addEventListener('input', (event) => {
 
 //TODO: make lightness dependent on tint - shade
 document.getElementById('color2tint').addEventListener('input', (event) => {
+  if (isActiveCircle('circle2')&& circle2Audio){
   color2HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
+  updateMixedColorDisplay();
+
+  const speed = Math.min(2, Math.max(0.5, parseFloat(event.target.value) / 50)); // Map value to 0.5–2 range
+    circle2Audio.playbackRate = speed;
+      console.log(`Speed (Tint) for Circle 2 audio set to: ${speed}`);
+    
+  }
 });
 
 document.getElementById('color2shade').addEventListener('input', (event) => {
@@ -251,8 +291,15 @@ document.getElementById('color2shade').addEventListener('input', (event) => {
 });
 
 document.getElementById('color2saturation').addEventListener('input', (event) => {
+  if (isActiveCircle('circle2')&& circle2Audio){
   color2HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
+  updateMixedColorDisplay();
+  const volumeValue = parseInt(event.target.value) / 100;  // Convert slider value to 0-1 range
+    circle2Audio.volume = volumeValue;  // Adjust the volume of the active audio
+    console.log(`Volume for active audio set to: ${volumeValue * 100}%`);
+  
+}
 });
 
 const colorCircles = document.querySelectorAll('.color-circle');
@@ -260,7 +307,7 @@ const colorCircles = document.querySelectorAll('.color-circle');
 colorCircles.forEach(circle => {
   circle.addEventListener('click', (event) => {
     const selectedColor = event.target.getAttribute('data-color');
-    updateActiveAudio(selectedColor); // Update the active audio
+    updateActiveAudio(selectedCircle, selectedColor); // Update the active audio
   });
 });
 
@@ -292,6 +339,6 @@ document.addEventListener("DOMContentLoaded", function() {
   circle1ne.classList.add("active");
 
   const selectedColor = circle1.dataset.color; // assuming you use a data-color attribute
-  updateActiveAudio(selectedColor); 
+  updateActiveAudio(selectedCircle, selectedColor); 
   console.log("Left circle is active on page load");
 });
