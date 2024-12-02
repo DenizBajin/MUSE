@@ -121,21 +121,17 @@
 
     // Function to load saved colors dynamically into the container
     function loadSavedColors() {
-    
-      const container = document.getElementById('savedColorsContainer');
-      container.innerHTML = ''; // Clear any existing swatches
+    const savedColors = JSON.parse(localStorage.getItem('savedColors')) || [];
+    const container = document.getElementById('savedColorsContainer');
+    container.innerHTML = ''; // Clear old colors
 
-      savedColors.forEach(color => {
-        const swatch = document.createElement('div');
-        swatch.classList.add('color-swatch');
-        swatch.style.backgroundColor = color.color;
-        swatch.onclick = function() {
-          // Redirect to edit the selected color mixture (for example, to the main mixer page with the color loaded)
-          window.location.href = `index.html?color=${color.color}`;
-        };
-        container.appendChild(swatch);
-      });
-    }
+    savedColors.forEach(({ color }) => {
+        const colorDiv = document.createElement('div');
+        colorDiv.style.backgroundColor = color;
+        colorDiv.className = 'color-box'; // Ensure this CSS class is defined
+        container.appendChild(colorDiv);
+    });
+}
 
     // Load saved colors when the page is loaded
     window.onload = loadSavedColors;

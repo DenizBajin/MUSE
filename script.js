@@ -1,9 +1,10 @@
 // Global variables
-let selectedCircle = 'circle1';
+let selectedCircle = null;
 
 // Initial colors for the large circles (HSL values)
-let color1HSL = { h: 100, s: 100, l: 100 }; // Red (H: 0, S: 100, L: 50)
-let color2HSL = { h: 100, s: 100, l: 100 }; // Yellow (H: 60, S: 100, L: 50)
+let color1HSL = { h: 0, s: 100, l: 50 }; // Red (H: 0, S: 100, L: 50)
+let color2HSL = { h: 60, s: 100, l: 50 }; // Yellow (H: 60, S: 100, L: 50)
+let currentMixedColor = null;
 //console.log ("heygurl"); fun lil print statement
 
 // Audio elements for the tracks associated with colors
@@ -15,6 +16,7 @@ const audioTracks = {
   orange: new Audio('piano4.m4a'),
   purple: new Audio('piano5.m4a'),
 };
+//let activeAudio = null;
 
 
 // Set each audio track to loop
@@ -66,8 +68,6 @@ function playSelectedAudio() {
   );
   if (color1Name && audioTracks[color1Name]) {
     audioTracks[color1Name].play();
-    
-
   }
 
   // Play audio for the right circle color
@@ -78,7 +78,6 @@ function playSelectedAudio() {
   );
   if (color2Name && audioTracks[color2Name]) {
     audioTracks[color2Name].play();
-    
   }
 }
 
@@ -140,9 +139,46 @@ function updateMixedColorDisplay() {
   const mixedColorHSL = mixHSLColors(color1HSL, color2HSL);
   const rgb = hslToRgb(mixedColorHSL.h, mixedColorHSL.s, mixedColorHSL.l);
   document.getElementById('savedColors').style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+  currentMixedColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
-// Event listener for the color palette'
+document.getElementById('saveButton').addEventListener('click', saveMixedColor);
+
+function saveMixedColor(){
+
+  // Get saved colors or initialize an empty array
+  if (!currentMixedColor) {
+    console.log("No mixed color to save.");
+    return;
+  }
+
+  let savedColors = JSON.parse(localStorage.getItem('savedColors')) || [];
+
+  const colorExists = savedColors.some(savedColor => savedColor.color === currentMixedColor);
+
+  if (colorExists) {
+    console.log("Color already saved.");
+    return; // Do not save the color if it's already in the list
+  }
+
+  // Add the new color to the saved colors
+  savedColors.push({ color: currentMixedColor });
+
+  // Keep only the last 20 colors (or any limit you choose)
+  while (savedColors.length > 20) {
+    console.log('Removing oldest color:', savedColors[0]);
+    savedColors.shift();
+}
+
+
+ // Save the updated array back to localStorage
+ localStorage.setItem('savedColors', JSON.stringify(savedColors));
+  // Reload saved colors on the page
+  loadSavedColors();
+  console.log('Color saved successfully:', currentMixedColor);
+}
+
+// Event listener for the color palette
 document.querySelectorAll('.color-circle').forEach(circle => {
   circle.addEventListener('click', () => {
     const selectedColor = circle.getAttribute('data-color');
@@ -210,7 +246,7 @@ function updateActiveAudio(color) {
 //needs to be reversed
 document.getElementById('color1tint').addEventListener('input', (event) => {
   //const speed = Math.min(2,Math.max(0.5, parseFloat(event.target.value)/50));
-  color1HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
+  color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
   const speed = Math.min(2, Math.max(0.5, parseFloat(event.target.value) / 50)); // Map value to 0.5–2 range
@@ -239,9 +275,8 @@ document.getElementById('color1shade').addEventListener('input', (event) => {
   updateMixedColorDisplay();
 });
 
-//TODO: make lightness dependent on tint - shade
 document.getElementById('color2tint').addEventListener('input', (event) => {
-  color2HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
+  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
 });
 
@@ -254,6 +289,7 @@ document.getElementById('color2saturation').addEventListener('input', (event) =>
   color2HSL.s = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
 });
+
 
 const colorCircles = document.querySelectorAll('.color-circle');
 
