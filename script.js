@@ -4,8 +4,8 @@ let circle1Audio = null;
 let circle2Audio = null;
 
 // Initial colors for the large circles (HSL values)
-let color1HSL = { h: 0, s: 100, l: 50 }; // Red (H: 0, S: 100, L: 50)
-let color2HSL = { h: 60, s: 100, l: 50 }; // Yellow (H: 60, S: 100, L: 50)
+let color1HSL = { h: 0, s: 0, l: 100 }; // Red (H: 0, S: 100, L: 50)
+let color2HSL = { h: 0, s: 0, l: 100 }; // Yellow (H: 60, S: 100, L: 50)
 let currentMixedColor = null;
 //console.log ("heygurl"); fun lil print statement
 
