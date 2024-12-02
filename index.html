@@ -309,10 +309,10 @@
     </div>
   </div>
 
-  <!-- Sliders Section -->
+  <!-- Sliders + Colors + Navigation Buttons Section -->
   
   <div class ="sliders-division">
-    <div class="sliders-left">
+    <div class="internal-sliders glass-box">
       <div class="slider-container">
         <label for="color1tint">Color1 Tint</label>
         <input type="range" id="color1tint" class="slider" min="0" max="100" value="50">
@@ -327,7 +327,31 @@
       </div>
     </div>
 
-    <div class = "sliders-right">
+    <div class = "glass-box">
+      <!-- Color Buttons -->
+      <div class="colors">
+        <span class="color-circle" id="color1" style="background-color: red;" data-color="red"></span>
+        <span class="color-circle" id="color2" style="background-color: yellow;" data-color="yellow"></span>
+        <span class="color-circle" id="color3" style="background-color: blue;" data-color="blue"></span>
+        <span class="color-circle" id="color4" style="background-color: green;" data-color="green"></span>
+        <span class="color-circle" id="color5" style="background-color: orange;" data-color="orange"></span>
+        <span class="color-circle" id="color6" style="background-color: purple;" data-color="purple"></span>
+      </div>
+
+      <div>
+         <!-- Save Button -->
+        <button id="saveButton" class="save-button">Save Mixture</button>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+          <button class="nav-button" onclick="window.location.href = 'help.html';">Help</button>
+          <button class="nav-button" onclick="window.location.href = 'mixed_colors.html';">More Mixed Colors</button>
+        </div>
+      </div>
+  
+    </div>
+
+    <div class = "internal-sliders glass-box">
       <div class="slider-container">
         <label for="color2tint">Color2 Tint</label>
         <input type="range" id="color2tint" class="slider" min="0" max="100" value="50">
@@ -343,24 +367,9 @@
     </div>
   </div>
 
-  <!-- Color Buttons -->
-  <div class="colors">
-    <div class="color-circle" id="color1" style="background-color: red;" data-color="red"></div>
-    <div class="color-circle" id="color2" style="background-color: yellow;" data-color="yellow"></div>
-    <div class="color-circle" id="color3" style="background-color: blue;" data-color="blue"></div>
-    <div class="color-circle" id="color4" style="background-color: green;" data-color="green"></div>
-    <div class="color-circle" id="color5" style="background-color: orange;" data-color="orange"></div>
-    <div class="color-circle" id="color6" style="background-color: purple;" data-color="purple"></div>
-  </div>
+  
 
-  <!-- Save Button -->
-  <button id="saveButton" class="save-button">Save Mixture</button>
-
-  <!-- Navigation Buttons -->
-  <div class="nav-buttons">
-    <button class="nav-button" onclick="window.location.href = 'help.html';">Help</button>
-    <button class="nav-button" onclick="window.location.href = 'mixed_colors.html';">More Mixed Colors</button>
-  </div>
+ 
 
   <!-- Audio Player (Hidden) -->
   <audio id="audioPlayer" preload="auto">
