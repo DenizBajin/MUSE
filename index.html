@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DJ Mixer</title>
   <link rel="stylesheet" href="style.css">
-  <!-- <style>
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    button {
+      font-family: 'Press Start 2P', cursive; /* Apply VHS font */
+      font-size: 0.5em;
+    }
 
     body {
       font-family: 'Press Start 2P', cursive; /* Apply VHS font */
-      font-size: 5;
+      font-size: 0.62em;
     }
 
-  </style> -->
+
+  </style>
 
   <!-- ALL OF THIS HAS BEEN TRANSFERED TO STYLE.CSS, PLEASE USE STYLE.CSS FOR STYLING
    <style>
@@ -306,7 +312,7 @@
     <!-- Left Circle with Remove Button -->
     <div class="circle-container">
       <div class="circle left-circle" id="circle1"></div>
-      <button class="remove-button" id="removeLeftButton">Remove</button>
+      <button class="button" id="removeLeftButton">Remove</button>
     </div>
 
     <!-- Saved Colors Palette -->
@@ -315,7 +321,7 @@
     <!-- Right Circle with Remove Button -->
     <div class="circle-container">
       <div class="circle right-circle" id="circle2"></div>
-      <button class="remove-button" id="removeRightButton">Remove</button>
+      <button class="button" id="removeRightButton">Remove</button>
     </div>
   </div>
 
@@ -347,12 +353,17 @@
 
       <div>
          <!-- Save Button -->
-        <button id="saveButton" class="save-button">Save Mixture</button>
-
+        <div class = "nav-buttons">
+          <button id="saveButton" class="button save-button">Save Mixture</button>
+        </div>
         <!-- Navigation Buttons -->
         <div class="nav-buttons">
-          <button class="nav-button" onclick="window.location.href = 'help.html';">Help</button>
-          <button class="nav-button" onclick="window.location.href = 'mixed_colors.html';">More Mixed Colors</button>
+          <button class="button" onclick="window.location.href = 'help.html';">Help</button>
+          <button class="button" onclick="window.location.href = 'mixed_colors.html';">
+            More 
+            Mixed 
+            Colors
+          </button>
         </div>
       </div>
   
@@ -372,14 +383,6 @@
   </div>
 
   
-
- 
-
-  <!-- Audio Player (Hidden) -->
-  <audio id="audioPlayer" preload="auto">
-    <source src="assets/music/drums.m4a" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
 
  
 <script>
