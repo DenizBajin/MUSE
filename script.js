@@ -4,8 +4,9 @@ let circle1Audio = null;
 let circle2Audio = null;
 
 // Initial colors for the large circles (HSL values)
-let color1HSL = { h: 100, s: 100, l: 100 }; // Red (H: 0, S: 100, L: 50)
-let color2HSL = { h: 100, s: 100, l: 100 }; // Yellow (H: 60, S: 100, L: 50)
+let color1HSL = { h: 0, s: 100, l: 50 }; // Red (H: 0, S: 100, L: 50)
+let color2HSL = { h: 60, s: 100, l: 50 }; // Yellow (H: 60, S: 100, L: 50)
+let currentMixedColor = null;
 //console.log ("heygurl"); fun lil print statement
 
 // Audio elements for the tracks associated with colors
@@ -17,6 +18,7 @@ const audioTracks = {
   orange: new Audio('piano4.m4a'),
   purple: new Audio('piano5.m4a'),
 };
+//let activeAudio = null;
 
 
 // Set each audio track to loop
@@ -68,8 +70,6 @@ function playSelectedAudio() {
   );
   if (color1Name && audioTracks[color1Name]) {
     audioTracks[color1Name].play();
-    
-
   }
 
   // Play audio for the right circle color
@@ -80,7 +80,6 @@ function playSelectedAudio() {
   );
   if (color2Name && audioTracks[color2Name]) {
     audioTracks[color2Name].play();
-    
   }
 }
 
@@ -240,7 +239,7 @@ document.getElementById('circle2').addEventListener('click', () => setActiveCirc
 document.getElementById('color1tint').addEventListener('input', (event) => {
 if (isActiveCircle('circle1')&& circle1Audio){
   //const speed = Math.min(2,Math.max(0.5, parseFloat(event.target.value)/50));
-  color1HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
+  color1HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle1', color1HSL);
   updateMixedColorDisplay();
   
@@ -271,7 +270,6 @@ document.getElementById('color1shade').addEventListener('input', (event) => {
   updateMixedColorDisplay();
 });
 
-//TODO: make lightness dependent on tint - shade
 document.getElementById('color2tint').addEventListener('input', (event) => {
   if (isActiveCircle('circle2')&& circle2Audio){
   color2HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
@@ -301,6 +299,7 @@ document.getElementById('color2saturation').addEventListener('input', (event) =>
   
 }
 });
+
 
 const colorCircles = document.querySelectorAll('.color-circle');
 
