@@ -37,17 +37,38 @@
     }
 
     .color-swatch {
-      width: 100% ;
+      width: 100px ;
       height: 100px;
       border-radius: 50%;
       cursor: pointer;
       transition: transform 0.3s ease;
       border: 2px solid #fff;
+      position: relative;
     }
 
     .color-swatch:hover {
       transform: scale(1.1);
-      border-color: #f00;
+      border-color: #fff;
+    }
+
+    /* Animated Border on Active State */
+    .color-swatch.active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 101%;
+      height: 101%;
+      border-radius: 50%;
+      border: 10px solid transparent;
+      box-sizing: border-box;
+      transition: border-color 0.4s ease;
+      animation: borderAnimation 0.8s linear infinite;
+    }
+
+    @keyframes borderAnimation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .back-button {
@@ -127,7 +148,7 @@
     savedColors.forEach(({ color }) => {
         const colorDiv = document.createElement('div');
         colorDiv.style.backgroundColor = color;
-        colorDiv.className = 'color-box'; // Ensure this CSS class is defined
+        colorDiv.className = 'color-swatch'; // Ensure this CSS class is defined
         container.appendChild(colorDiv);
     });
 }
