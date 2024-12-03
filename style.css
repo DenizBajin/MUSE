@@ -19,7 +19,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
-    padding-top: 5%;
+    padding-top: 1%;
   }
 
   .circle-container {
@@ -194,7 +194,6 @@
       height: 100%;
       width: 33%;
       
-      padding-bottom: 25px;
       padding-top:25px;
 
       /*glass effect*/
@@ -206,6 +205,10 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       
       
+    }
+
+    .glass-padding {
+      padding-bottom: 25px;
     }
 
     .slider-container {
@@ -266,16 +269,18 @@
     
   /* Color Circles */
   .colors {
-    padding-left: 5%;
-    padding: 5%;
+    padding-left: 1px;
+    padding-bottom: 7%;
     margin-top:-10px;
+    width: 100%;
+    margin-bottom: -10px;
 
   }
   
   span.color-circle {
     display:inline-block;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     margin: 0 10px;
     cursor: pointer;

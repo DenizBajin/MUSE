@@ -12,58 +12,145 @@
   <style>
     body {
       font-family: 'Press Start 2P', cursive; /* Apply VHS font */
-      margin: 0;
-      padding: 0;
       background-color: black; /* Black background */
       color: white; /* White text */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      text-align: center;
+      text-align: left;
     }
 
-    h1 {
-      font-size: 1.8em; /* Smaller heading font size */
+    .header {
+      padding: 0% 2%;
+      font-size: 1.1em; /* Smaller heading font size */
       color: white; /* Heading color set to white */
-      margin-bottom: 15px;
+      max-width: 250px;
+    }
+
+    .all-text {
+      display: flex;
     }
 
     .content {
-      font-size: 1em; /* Smaller content font size */
+      font-size: 0.7em; /* Smaller content font size */
       color: white; /* Content text color set to white */
       margin-bottom: 20px;
       max-width: 600px;
       line-height: 1.4; /* Adjust line-height to fit better */
+      padding: 0% 2%;
+      margin: 1%;
+      display: flex;
+      background-color: rgb(64, 64, 64);
+    }
+
+    .steps-one-side {
+      max-width: 50%;
+      margin:2%;
+    }
+
+    .step-text {
+      font-size: 1.2em; /* Smaller content font size */
+      margin-bottom: -5px;
+    }
+
+    .finished-reading {
+      margin-top: 75px;
+      color:lightgrey;
     }
 
     .back-button {
       padding: 12px 25px;
-      font-size: 1.2em; /* Smaller button font size */
+      font-size: 1.0em; /* Smaller button font size */
       background-color: white; /* White button background */
       color: black; /* Black text color */
       border: none;
       cursor: pointer;
       border-radius: 5px;
-      margin-top: 20px;
+      margin-top: 2px;
       font-family: 'Press Start 2P', cursive; /* Apply VHS font to button text */
     }
 
     .back-button:hover {
       background-color: #f1f1f1; /* Slight gray background on hover */
     }
+
+    /* VHS Style Glow and Flicker Effect */
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      opacity: 0.1;
+      z-index: -1;
+      animation: flicker 1.5s infinite;
+    }
+
+    .button:hover {
+      background-color: rgb(158, 158, 158);
+      box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.7);
+    }
+
+    /* VHS flicker effect */
+    @keyframes flicker {
+      0% { opacity: 0.1; }
+      20% { opacity: 0.2; }
+      40% { opacity: 0.3; }
+      60% { opacity: 0.4; }
+      80% { opacity: 0.2; }
+      100% { opacity: 0.1; }
+    }
   </style>
 </head>
 <body>
-  <h1>How to Make Music with Colors</h1>
+  
 
-  <div class="content">
-    <p>Click on the left large circle. Choose and click on a color. Sound will play. You can use the sliders to adjust the sound and the color. You can click on the right large circle and click another color. This will play that sound on top of the one you are already playing. When ready, you can save the sound by clicking save mixture.</p>
-    <p>You can keep playing the sounds that you saved by clicking the saved colors menu and clicking the color you want to keep playing, mixing, and editing.</p>
-    <p>Unless multiple colors are mixed and saved as one color, you can only adjust and edit one color. The color you will be editing is the one that you clicked last which will display a gray circle around it.</p>
+  <div class = "all-text">
+    <div class = "header">
+      <h1>How to Make Music with Colors</h1>
+      <p class="all-text">In 5 steps</p>
+
+      <p class = "finished-reading">Finished reading?</p>
+      <button class="back-button button" onclick="window.location.href = 'index.html';">Back to Mixer</button>
+    </div>
+
+    <div>
+      <div class="content">
+        <div class ="steps-one-side">
+          <p class = "step-text"> > Step 1</p>
+          <p>Select one of the large circles. </p>
+
+          <p class = "step-text"> > Step 2</p>
+          <p> Click one of the colors from the palette. Sound will play. </p>
+          
+          <p class = "step-text"> > Step 3</p>
+          <p>Use the sliders to adjust the sound and the color. </p> 
+        </div>
+
+        <div class ="steps-one-side">
+          <p class = "step-text"> > Step 4</p>
+          <p>Click on the other large circle and select a color. 
+            This will play that sound on top of the one you are already playing. </p>
+          
+          <p class = "step-text"> > Step 5</p>
+          <p>When ready, click "save mixture" to save your new color.</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <div>
+          <p class = "step-text">Where did my saved colors go?</p>
+          <p>You can keep playing the sounds that you saved by clicking the saved colors menu and clicking the color you want to keep playing, mixing, and editing.</p>
+          
+          <p class = "step-text">Can I edit multiple colors at a time?</p>
+          <p>Unless multiple colors are mixed and saved as one color, you can only adjust and edit one color. The color you will be editing is the one that you clicked last which will display a gray circle around it.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <button class="back-button" onclick="window.location.href = 'index.html';">Back to Mixer</button>
 </body>
 </html>
