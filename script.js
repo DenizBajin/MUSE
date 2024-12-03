@@ -161,7 +161,6 @@ function updateMixedColorDisplay() {
   const color1RGB = hslToRgb(color1HSL.h, color1HSL.s, color1HSL.l);
   const color2RGB = hslToRgb(color2HSL.h, color2HSL.s, color2HSL.l);
 
-
   const rgb = colorMixer(color1RGB,color2RGB);
 
   //const mixedColorHSL = mixHSLColors(color1HSL, color2HSL);
@@ -309,7 +308,7 @@ document.getElementById('color1saturation').addEventListener('input', (event) =>
 
 document.getElementById('color2tint').addEventListener('input', (event) => {
   if (isActiveCircle('circle2')&& circle2Audio){
-  color2HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
+  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
   updateMixedColorDisplay();
 
