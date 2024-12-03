@@ -188,7 +188,7 @@ function saveMixedColor(){
   // Add the new color to the saved colors
   savedColors.push({ color: currentMixedColor });
   // Keep only the last 20 colors (or any limit you choose)
-  while (savedColors.length > 21) {
+  while (savedColors.length > 20) {
     console.log('Removing oldest color:', savedColors[0]);
     savedColors.shift();
 }
