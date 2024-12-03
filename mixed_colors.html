@@ -139,23 +139,48 @@
       { color: '#33FFFF', id: 6 }
     ];
 
+    const audioTracks = {
+        red: new Audio('drums.m4a'),
+        yellow: new Audio('piano.m4a'),
+        blue: new Audio('piano2.m4a'),
+        green: new Audio('piano3.m4a'),
+        orange: new Audio('piano4.m4a'),
+        purple: new Audio('piano5.m4a')
+};
+
     // Function to load saved colors dynamically into the container
+
     function loadSavedColors() {
     const savedColors = JSON.parse(localStorage.getItem('savedColors')) || [];
     const container = document.getElementById('savedColorsContainer');
     container.innerHTML = ''; // Clear old colors
 
-    savedColors.forEach(({ color }) => {
+    savedColors.forEach(({ color, audio }) => {
         const colorDiv = document.createElement('div');
         colorDiv.style.backgroundColor = color;
         colorDiv.className = 'color-swatch'; // Ensure this CSS class is defined
+
+        colorDiv.addEventListener('click', () => {
+            // Recreate audio tracks for the saved color
+            audio.forEach(audioName => {
+                const track = audioTracks.audioName;
+                if (track) {
+                    track.play();
+                }
+            });
+
+            // Optionally, highlight the selected saved color
+            colorDiv.classList.add('active');
+            setTimeout(() => {
+                colorDiv.classList.remove('active');
+            }, 300); // Remove active class after a brief time
+        });
+
         container.appendChild(colorDiv);
     });
+
+    console.log('Saved colors loaded:', savedColors);
 }
 
-    // Load saved colors when the page is loaded
-    window.onload = loadSavedColors;
-  </script>
-
-</body>
-</html>
+window.onload = loadSavedColors;
+</script>
