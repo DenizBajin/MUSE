@@ -21,6 +21,7 @@ const audioTracks = {
 //let activeAudio = null;
 
 
+
 // Set each audio track to loop
 Object.values(audioTracks).forEach(track => {
   track.loop = true;
@@ -136,10 +137,35 @@ function mixHSLColors(hsl1, hsl2) {
   return { h: mixedH, s: mixedS, l: mixedL };
 }
 
+//COLOR MIXING 
+//SOURCE: https://stackoverflow.com/questions/14819058/mixing-two-colors-naturally-in-javascript
+
+//colorChannelA and colorChannelB are ints ranging from 0 to 255
+function colorChannelMixer(colorChannelA, colorChannelB, amountToMix){
+  var channelA = colorChannelA*amountToMix;
+  var channelB = colorChannelB*(1-amountToMix);
+  return parseInt(channelA+channelB);
+}
+//rgbA and rgbB are arrays, amountToMix ranges from 0.0 to 1.0, hard coded to 0.5 to mix evenly
+//example (red): rgbA = [255,0,0]
+function colorMixer(rgbA, rgbB){
+  var r = colorChannelMixer(rgbA[0],rgbB[0],0.5);
+  var g = colorChannelMixer(rgbA[1],rgbB[1],0.5);
+  var b = colorChannelMixer(rgbA[2],rgbB[2],0.5);
+  //return "rgb("+r+","+g+","+b+")";
+  return [r,g,b];
+}
+
 // Function to update the mixed color display in the middle circle
 function updateMixedColorDisplay() {
-  const mixedColorHSL = mixHSLColors(color1HSL, color2HSL);
-  const rgb = hslToRgb(mixedColorHSL.h, mixedColorHSL.s, mixedColorHSL.l);
+  const color1RGB = hslToRgb(color1HSL.h, color1HSL.s, color1HSL.l);
+  const color2RGB = hslToRgb(color2HSL.h, color2HSL.s, color2HSL.l);
+
+
+  const rgb = colorMixer(color1RGB,color2RGB);
+
+  //const mixedColorHSL = mixHSLColors(color1HSL, color2HSL);
+  //const rgb = hslToRgb(mixedColorHSL.h, mixedColorHSL.s, mixedColorHSL.l);
   document.getElementById('savedColors').style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
@@ -153,7 +179,25 @@ function setActiveCircle(circleId) {
     circle.classList.remove('active'); // Remove active class from all circles
   });
   document.getElementById(circleId).classList.add('active'); // Add active class to the selected circle
-}
+
+  // enable / disable sliders when other disk is clicked
+  if (selectedCircle == "circle1") {
+    enableSlider = true;
+  } else {
+    enableSlider = false;
+  }
+  
+  const tintSlider1 = document.getElementById('color1tint');
+    tintSlider1.disabled = !enableSlider;
+  const tintSaturation1 = document.getElementById('color1saturation');
+    tintSaturation1.disabled = !enableSlider;
+  
+  const tintSlider2 = document.getElementById('color2tint');
+    tintSlider2.disabled = enableSlider;
+  const tintSaturation2 = document.getElementById('color2saturation');
+    tintSaturation2.disabled = enableSlider;
+  }
+
 
 // Event listener for the color palette'
 document.querySelectorAll('.color-circle').forEach(circle => {
