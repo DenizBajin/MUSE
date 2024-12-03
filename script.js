@@ -161,12 +161,47 @@ function updateMixedColorDisplay() {
   const color1RGB = hslToRgb(color1HSL.h, color1HSL.s, color1HSL.l);
   const color2RGB = hslToRgb(color2HSL.h, color2HSL.s, color2HSL.l);
 
-  const rgb = colorMixer(color1RGB,color2RGB);
 
-  //const mixedColorHSL = mixHSLColors(color1HSL, color2HSL);
-  //const rgb = hslToRgb(mixedColorHSL.h, mixedColorHSL.s, mixedColorHSL.l);
+  const rgb = colorMixer(color1RGB,color2RGB);
+  currentMixedColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+
   document.getElementById('savedColors').style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
+
+document.getElementById('saveButton').addEventListener('click', saveMixedColor);
+
+function saveMixedColor(){
+  // Get saved colors or initialize an empty array
+  if (!currentMixedColor) {
+    console.log("No mixed color to save.");
+    alert("No mixed color to save.");
+    return;
+  }
+  let savedColors = JSON.parse(localStorage.getItem('savedColors')) || [];
+  const colorExists = savedColors.some(savedColor => savedColor.color === currentMixedColor);
+
+  if (colorExists) {
+    console.log("Color already saved.");
+    alert("Color already saved.")
+    return; // Do not save the color if it's already in the list
+  }
+  // Add the new color to the saved colors
+  savedColors.push({ color: currentMixedColor });
+  // Keep only the last 20 colors (or any limit you choose)
+  while (savedColors.length > 21) {
+    console.log('Removing oldest color:', savedColors[0]);
+    savedColors.shift();
+}
+
+// Event listener for the color palette'
+ // Save the updated array back to localStorage
+ localStorage.setItem('savedColors', JSON.stringify(savedColors));
+  // Reload saved colors on the page
+  loadSavedColors();
+  console.log('Color saved successfully:', currentMixedColor);
+  alert("color saved successfully")
+}
+// Event listener for the color palette
 
 function isActiveCircle(circleId) {
   return selectedCircle === circleId; // Check if the currently active circle matches
@@ -308,7 +343,7 @@ document.getElementById('color1saturation').addEventListener('input', (event) =>
 
 document.getElementById('color2tint').addEventListener('input', (event) => {
   if (isActiveCircle('circle2')&& circle2Audio){
-  color2HSL.l = Math.min(100, Math.max(0, parseInt(event.target.value)));
+  color2HSL.l = Math.min(100, Math.max(50, parseInt(event.target.value)));
   updateCircleColor('circle2', color2HSL);
   updateMixedColorDisplay();
 
