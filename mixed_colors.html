@@ -37,13 +37,14 @@
       margin-top: 30px;
     }
 
-    .color-swatch {
-      width: 100px;
-      height: 100px;
+    .color-box {
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       cursor: pointer;
       transition: transform 0.3s ease;
       border: 2px solid #fff;
+      padding-top:70px;
     }
 
     .color-swatch:hover {
@@ -109,6 +110,7 @@
   <button class="back-button" onclick="window.location.href = 'index.html';">Back to Mixer</button>
 
   <script>
+
     // Simulate previously saved color mixtures
     const savedColors = [
       { color: '#FF5733', id: 1 },
@@ -125,11 +127,44 @@
     const container = document.getElementById('savedColorsContainer');
     container.innerHTML = ''; // Clear old colors
 
+    idTracker = 0;
+
     savedColors.forEach(({ color }) => {
         const colorDiv = document.createElement('div');
+        //createElement.id = "mango";
         colorDiv.style.backgroundColor = color;
         colorDiv.className = 'color-box'; // Ensure this CSS class is defined
         container.appendChild(colorDiv);
+
+        var colorName = color.toString();
+        
+        //colorAPI
+        fetch(`https://www.thecolorapi.com/id?rgb=${colorName}&format=json`)
+        .then(response => response.json())
+        .then(data => {
+          colorDiv.setAttribute("id", "Div" + idTracker);
+          var theDiv = document.getElementById("Div" + idTracker);
+          var content = document.createTextNode(data.name.value);
+          theDiv.appendChild(content);
+
+          idTracker++;
+        });
+        
+        //labels
+        // colorDiv.setAttribute("id", "Div" + idTracker);
+        // var theDiv = document.getElementById("Div" + idTracker);
+        // var content = document.createTextNode(idTracker + colorName);
+        // theDiv.appendChild(content);
+        
+
+        // const para = document.createElement("p");
+        // const node = document.createTextNode("This");
+        // para.appendChild(node);
+        // const element = document.getElementById("div");
+        // element.appendChild(para);
+
+
+
     });
 }
 

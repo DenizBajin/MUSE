@@ -18,8 +18,12 @@
    .mixer {
     display: flex;
     justify-content: space-evenly;
-    align-items: flex-start;
+    align-items: center;
     padding-top: 1%;
+  }
+
+  span.mixer {
+    display:inline-block;
   }
 
   .circle-container {
@@ -35,8 +39,10 @@
 
   .circle {
     position:relative;
-    width: 200px;
-    height: 200px;
+    width: 30vw;
+    height: 30vw;
+    max-width: 200px;
+    max-height: 200px;
     border-radius: 50%;
     background-color: lightgray;
     transition: background-color 0.5s ease;
@@ -51,10 +57,7 @@
     background-color: lightgreen;
   }
 
-  .mixer {
-    align-items: center;
-    /* background-color: yellow; */
-  }
+
   /* Remove Buttons */
   .remove-button {
     padding: 10px 20px;
@@ -77,8 +80,12 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 201px;
-  height: 203px;
+  width: 30vw;
+  height: 30vw;
+  max-width: 201px;
+  max-height: 203px;
+  /* width: 201px;
+  height: 203px; */
   border-radius: 50%;
   border: 10px solid transparent;
   box-sizing: border-box;
@@ -149,6 +156,7 @@
     background-color: #666;
   }
 
+
   
 
   /* Saved Colors Palette DUPLICATES 
@@ -193,7 +201,7 @@
       margin:1%;
       height: 100%;
       width: 33%;
-      
+      height: 250px;
       padding-top:25px;
 
       /*glass effect*/
@@ -279,8 +287,11 @@
   
   span.color-circle {
     display:inline-block;
-    width: 45px;
-    height: 45px;
+    width: 5vw;
+    height: 5vw;
+
+    max-width: 50px;
+    max-height: 50px;
     border-radius: 50%;
     margin: 0 10px;
     cursor: pointer;
@@ -403,25 +414,25 @@
 
   /* Responsive Design */
   @media (max-width: 768px) {
-    .mixer {
+    /* .mixer {
       flex-direction: column;
-    }
+    } */
 
-    .circle {
+    /* .circle {
       width: 150px;
       height: 150px;
-    }
+    } */
 
-    .slider {
+    /* .slider {
       width: 60px;
     }
 
     .color-circle {
       width: 40px;
       height: 40px;
-    }
+    } */
 
-    button {
+    /* button {
       padding: 8px 16px;
       font-size: 12px;
     }
@@ -429,5 +440,5 @@
     .nav-buttons {
       flex-direction: column;
       gap: 10px;
-    }
+    } */
   }
