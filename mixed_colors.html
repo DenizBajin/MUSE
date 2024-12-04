@@ -196,6 +196,7 @@
         var colorName = color.toString();
         
         //colorAPI
+        //source: https://www.freecodecamp.org/news/make-api-calls-in-javascript/
         fetch(`https://www.thecolorapi.com/id?rgb=${colorName}&format=json`)
         .then(response => response.json())
         .then(data => {
