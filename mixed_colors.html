@@ -18,7 +18,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
       text-align: center;
     }
 
@@ -29,27 +28,51 @@
       text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
     }
 
+    .all-content {
+      padding: 20px;
+    }
+
     .saved-colors-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
       gap: 20px;
       margin-top: 30px;
     }
 
-    .color-box {
-      width: 70px;
-      height: 70px;
+    .color-swatch {
+      width: 100px ;
+      height: 100px;
       border-radius: 50%;
       cursor: pointer;
       transition: transform 0.3s ease;
       border: 2px solid #fff;
-      padding-top:70px;
+      padding-top:100px;
+      margin-bottom: 40px;
     }
 
     .color-swatch:hover {
       transform: scale(1.1);
-      border-color: #f00;
+      border-color: #fff;
+    }
+
+    /* Animated Border on Active State */
+    .color-swatch.active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 101%;
+      height: 101%;
+      border-radius: 50%;
+      border: 10px solid transparent;
+      box-sizing: border-box;
+      transition: border-color 0.4s ease;
+      animation: borderAnimation 0.8s linear infinite;
+    }
+
+    @keyframes borderAnimation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .back-button {
@@ -101,13 +124,20 @@
 </head>
 <body>
 
-  <h1>Saved Mixed Colors</h1>
+  <div class = "all-content">
+    <div class = "header">
+      <h1 >Saved Mixed Colors</h1>
+    </div>
 
-  <div class="saved-colors-container" id="savedColorsContainer">
-    <!-- Mixed Color Swatches will be inserted here dynamically -->
+    <div class = "colors-and-button">
+      <div class="saved-colors-container" id="savedColorsContainer">
+        <!-- Mixed Color Swatches will be inserted here dynamically -->
+      </div>
+
+      <button class="back-button" onclick="window.location.href = 'index.html';">Back to Mixer</button>
+    </div>
   </div>
 
-  <button class="back-button" onclick="window.location.href = 'index.html';">Back to Mixer</button>
 
   <script>
 
@@ -121,7 +151,17 @@
       { color: '#33FFFF', id: 6 }
     ];
 
+    const audioTracks = {
+        red: new Audio('drums.m4a'),
+        yellow: new Audio('piano.m4a'),
+        blue: new Audio('piano2.m4a'),
+        green: new Audio('piano3.m4a'),
+        orange: new Audio('piano4.m4a'),
+        purple: new Audio('piano5.m4a')
+};
+
     // Function to load saved colors dynamically into the container
+
     function loadSavedColors() {
     const savedColors = JSON.parse(localStorage.getItem('savedColors')) || [];
     const container = document.getElementById('savedColorsContainer');
@@ -129,11 +169,28 @@
 
     idTracker = 0;
 
-    savedColors.forEach(({ color }) => {
+    savedColors.forEach(({ color, audio }) => {
         const colorDiv = document.createElement('div');
         //createElement.id = "mango";
         colorDiv.style.backgroundColor = color;
-        colorDiv.className = 'color-box'; // Ensure this CSS class is defined
+        colorDiv.className = 'color-swatch'; // Ensure this CSS class is defined
+
+        colorDiv.addEventListener('click', () => {
+            // Recreate audio tracks for the saved color
+            audio.forEach(audioName => {
+                const track = audioTracks.audioName;
+                if (track) {
+                    track.play();
+                }
+            });
+
+            // Optionally, highlight the selected saved color
+            colorDiv.classList.add('active');
+            setTimeout(() => {
+                colorDiv.classList.remove('active');
+            }, 300); // Remove active class after a brief time
+        });
+
         container.appendChild(colorDiv);
 
         var colorName = color.toString();
@@ -164,9 +221,9 @@
         // element.appendChild(para);
 
 
-
     });
 }
+
 
     // Load saved colors when the page is loaded
     window.onload = loadSavedColors;

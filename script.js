@@ -7,6 +7,7 @@ let circle2Audio = null;
 let color1HSL = { h: 0, s: 0, l: 100 }; // Red (H: 0, S: 100, L: 50)
 let color2HSL = { h: 0, s: 0, l: 100 }; // Yellow (H: 60, S: 100, L: 50)
 let currentMixedColor = null;
+let currentMixedAudio = null; //THE LOGIC FOR THIS IS WRONG RIGHT NOW WORKING ON IT
 //console.log ("heygurl"); fun lil print statement
 
 // Audio elements for the tracks associated with colors
@@ -64,30 +65,36 @@ function playSelectedAudio() {
   });
 
   // Play audio for the left circle color
+  let audioTrackLeft = null; //REMOVE EVENTUALLY
   const color1Name = Object.keys(colorValues).find(
     key => colorValues[key].h === color1HSL.h &&
            colorValues[key].s === color1HSL.s &&
            colorValues[key].l === color1HSL.l
   );
   if (color1Name && audioTracks[color1Name]) {
+    audioTrackLeft = audioTracks[color1Name];
     audioTracks[color1Name].play();
   }
 
   // Play audio for the right circle color
+  let audioTrackRight = null; //REMOVE EVENTUALLY
   const color2Name = Object.keys(colorValues).find(
     key => colorValues[key].h === color2HSL.h &&
            colorValues[key].s === color2HSL.s &&
            colorValues[key].l === color2HSL.l
   );
   if (color2Name && audioTracks[color2Name]) {
+    audioTrackRight = audioTracks[color2Name];
     audioTracks[color2Name].play();
   }
+  currentMixedAudio= [audioTrackLeft, audioTrackRight]; //DOESNT WORK CAUSE ALL AUDIOS BECOME PART OF IT
 }
 
 // Event listeners for remove buttons
 document.getElementById('removeLeftButton').addEventListener('click', () => {
   color1HSL = { h: 0, s: 0, l: 100 }; // Reset to white
   updateCircleColor('circle1', color1HSL);
+  updateCircleAudio()
   playSelectedAudio(); // Update audio playback
   updateMixedColorDisplay(); // Update mixed color display
 });
@@ -178,6 +185,16 @@ function saveMixedColor(){
     return;
   }
   let savedColors = JSON.parse(localStorage.getItem('savedColors')) || [];
+
+  // Get audio names for the current mixed audio
+  const audioNames = Object.keys(audioTracks).map(track => audioTracks[track].src.split('/').pop()); //LOOK AT THIS AGAIN
+
+
+  if (!audioNames.every(name => name)) {
+    console.log("One or more audio tracks are not associated with a name.");
+    return;
+  }
+
   const colorExists = savedColors.some(savedColor => savedColor.color === currentMixedColor);
 
   if (colorExists) {
@@ -186,9 +203,9 @@ function saveMixedColor(){
     return; // Do not save the color if it's already in the list
   }
   // Add the new color to the saved colors
-  savedColors.push({ color: currentMixedColor });
+  savedColors.push({ color: currentMixedColor, audio: currentMixedAudio }); //CANNOT SEND CURRENT MIXEDAUDIO HERE THIS SAVED COLORS IS PUSHED TO LOCAL STORAGE
   // Keep only the last 20 colors (or any limit you choose)
-  while (savedColors.length > 21) {
+  while (savedColors.length > 20) {
     console.log('Removing oldest color:', savedColors[0]);
     savedColors.shift();
 }
@@ -198,8 +215,8 @@ function saveMixedColor(){
  localStorage.setItem('savedColors', JSON.stringify(savedColors));
   // Reload saved colors on the page
   loadSavedColors();
-  console.log('Color saved successfully:', currentMixedColor);
-  alert("color saved successfully")
+  console.log('Color and audio saved successfully:', currentMixedColor);
+  alert("color/audio saved successfully")
 }
 // Event listener for the color palette
 
