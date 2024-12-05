@@ -44,10 +44,14 @@ You can keep playing the sounds that you saved by clicking the saved colors menu
 
 Unless multiple colors are mixed and saved as one color, you can only adjust and edit one color. The color you will be editing is the one that you clicked last which will display a gray circle around it.
 
+---
+
 ## Project Details
 **Technologies Used:**
 HTML, CSS, and JavaScript
 Web Audio API for sound generation
+
+---
 
 ## Contributions
 We welcome contributions! Please follow these steps:
@@ -70,7 +74,9 @@ git push origin feature-name
 ``` 
 Submit a pull request.
 
-##Contact
+---
+
+## Contact
 For feedback, suggestions, or inquiries:
 GitHub: DenizBajin
 
