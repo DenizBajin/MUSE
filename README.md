@@ -36,11 +36,11 @@ Drag and drop the intro.html file into any modern web browser (e.g., Chrome, Fir
 
 5: When ready, click "save mixture" to save your new color.
 
-####Where did my saved colors go?
+#### Where did my saved colors go?
 
 You can keep playing the sounds that you saved by clicking the saved colors menu and clicking the color you want to keep playing, mixing, and editing.
 
-####Can I edit multiple colors at a time?
+#### Can I edit multiple colors at a time?
 
 Unless multiple colors are mixed and saved as one color, you can only adjust and edit one color. The color you will be editing is the one that you clicked last which will display a gray circle around it.
 
@@ -78,6 +78,7 @@ Submit a pull request.
 
 ## Contact
 For feedback, suggestions, or inquiries:
+
 GitHub: DenizBajin
 
 Enjoy creating music from colors with Muse! 🎨🎵
