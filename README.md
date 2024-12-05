@@ -19,6 +19,7 @@ Clone the repository to your local machine:
 ```bash  
 git clone https://github.com/DenizBajin/muse.git  
 cd muse  
+```
 
 ### Step 2: Open the File
 Locate the intro.html file in the project folder.
@@ -49,11 +50,25 @@ HTML, CSS, and JavaScript
 Web Audio API for sound generation
 
 ## Contributions
-Contributions are welcome! If you'd like to enhance Muse, feel free to:
+We welcome contributions! Please follow these steps:
 
-1: Fork the repository.
-2: Create a new branch for your feature or fix.
-3: Submit a pull request with your changes.
+Fork the repository.
+Create a feature branch:
+```bash
+Copy code
+git checkout -b feature-name
+```
+Commit your changes:
+```bash
+Copy code
+git commit -m "Add feature name"
+```
+Push the branch:
+```bash
+Copy code
+git push origin feature-name
+``` 
+Submit a pull request.
 
 ##Contact
 For feedback, suggestions, or inquiries:
